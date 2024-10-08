@@ -26,8 +26,30 @@ Open http://localhost:3000 with your browser to see the project.
 
 You can specify new Python dependencies in `setup.py`.
 
-## Deploy on Dagster Cloud
+## Focusing on Assets
 
-The easiest way to deploy your Dagster project is to use Dagster Cloud.
+Context and visibility. Everyone in the organization can understand the data lineage and how data assets relate to each other
 
-Check out the [Dagster Cloud Documentation](https://docs.dagster.cloud) to learn more.
+Productivity. By building a DAG that globally understands what data exists and why, asset-centric workflows allow for reusing assets without changing an existing sequence of tasks
+
+Observability. It’s easy to tell exactly why assets are out-of-date, whether it might be late upstream data or errors in code
+
+Troubleshooting. Every run and computation is tied to the goal of producing data, so debugging tools like logs are specific to the assets being produced
+
+## Software-defined Asset (SDA)
+
+Software-defined assets allow you to write data pipelines by focusing on the assets they produce, making pipelines more debuggable and accessible.
+
+## Anatomy of an asset
+
+To create an asset, you write code that describes an asset that you want to exist, along with any other assets that the asset is derived from, and a function that computes the contents of the asset.
+
+Specifically, an asset includes:
+
+An @asset decorator. This tells Dagster that the function produces an asset.
+
+An asset key that uniquely identifies the asset in Dagster. By default, this is the function name. However, asset keys can have prefixes, much like how files are in folders or database tables are in schemas.
+
+A set of upstream asset dependencies, referenced using their asset keys. We’ll talk about this more in the next lesson, which focuses on asset dependencies.
+
+A Python function that defines how the asset is computed.
