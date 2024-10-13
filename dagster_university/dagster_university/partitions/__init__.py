@@ -1,4 +1,5 @@
 from dagster import MonthlyPartitionsDefinition, WeeklyPartitionsDefinition
+
 from ..assets import constants
 
 start_date = constants.START_DATE
